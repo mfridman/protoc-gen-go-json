@@ -14,7 +14,7 @@ those that contain `oneof` fields.
 ## Install
 
 ```
-go get github.com/mitchellh/protoc-gen-go-json
+go install github.com/mfridman/protoc-gen-go-json@latest
 ```
 
 Also required:
