@@ -1,6 +1,6 @@
 # protoc-gen-go-json
 
-[![Build](https://github.com/mfridman/protoc-gen-go-json/actions/workflows/ci.yaml)][badges_ci]
+[![Build](https://github.com/mfridman/protoc-gen-go-json/actions/workflows/ci.yaml/badge.svg)][badges_ci]
 [![Report
 Card](https://goreportcard.com/badge/github.com/mfridman/protoc-gen-go-json)][badges_goreportcard]
 [![Go Reference](https://pkg.go.dev/badge/github.com/mfridman/protoc-gen-go-json.svg)][badges_godoc]
@@ -49,7 +49,7 @@ Next, generate the code:
 protoc --go_out=. --go-json_out=. request.proto
 ```
 
-### Using `buf`
+#### Using `buf`
 
 ```yaml
 version: v1
@@ -132,6 +132,6 @@ Mitchell's [Planned Repo
 Archive](https://gist.github.com/mitchellh/90029601268e59a29e64e55bab1c5bdc) gist for more
 information.
 
-[badges_ci]: https://github.com/mfridman/protoc-gen-go-json/actions/workflows/ci.yaml/badge.svg
+[badges_ci]: https://github.com/mfridman/protoc-gen-go-json/actions/workflows/ci.yaml
 [badges_goreportcard]: https://goreportcard.com/report/github.com/mfridman/protoc-gen-go-json
 [badges_godoc]: https://pkg.go.dev/github.com/mfridman/protoc-gen-go-json
