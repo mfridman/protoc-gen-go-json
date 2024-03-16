@@ -12,7 +12,7 @@ func (msg *Basic) MarshalJSON() ([]byte, error) {
 	return protojson.MarshalOptions{
 		UseEnumNumbers:  false,
 		EmitUnpopulated: false,
-		UseProtoNames:   false,
+		UseProtoNames:   true,
 	}.Marshal(msg)
 }
 
@@ -28,7 +28,7 @@ func (msg *Nested) MarshalJSON() ([]byte, error) {
 	return protojson.MarshalOptions{
 		UseEnumNumbers:  false,
 		EmitUnpopulated: false,
-		UseProtoNames:   false,
+		UseProtoNames:   true,
 	}.Marshal(msg)
 }
 
@@ -44,7 +44,7 @@ func (msg *Nested_Message) MarshalJSON() ([]byte, error) {
 	return protojson.MarshalOptions{
 		UseEnumNumbers:  false,
 		EmitUnpopulated: false,
-		UseProtoNames:   false,
+		UseProtoNames:   true,
 	}.Marshal(msg)
 }
 

@@ -19,7 +19,7 @@ plugins:
   - plugin: buf.build/protocolbuffers/go
     out: gen/go
     opt: paths=source_relative
-  - plugin: buf.build/community/mfridman-go-json
+  - plugin: go-json
     out: gen/go
     opt:
       - paths=source_relative
