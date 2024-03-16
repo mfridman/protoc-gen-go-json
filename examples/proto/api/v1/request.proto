@@ -2,7 +2,7 @@
    Some license stuff
 */
 
-// +build !windows
+//go:build !windows
 
 syntax = "proto3";
 
