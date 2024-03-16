@@ -37,9 +37,9 @@ func generate(p *protogen.Plugin, opt *gen.Options) error {
 		if len(f.Messages) == 0 {
 			continue
 		}
-		gf := p.NewGeneratedFile(f.GeneratedFilenamePrefix+defaultFilenameSuffix, f.GoImportPath)
-		if err := gen.ApplyTemplate(gf, f, opt); err != nil {
-			gf.Skip()
+		g := p.NewGeneratedFile(f.GeneratedFilenamePrefix+defaultFilenameSuffix, f.GoImportPath)
+		if err := gen.ApplyTemplate(g, f, opt); err != nil {
+			g.Skip()
 			return nil
 		}
 	}
