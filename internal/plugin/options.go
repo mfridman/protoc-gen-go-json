@@ -26,12 +26,11 @@ func parseOptions(raw string) (*gen.Options, error) {
 		if !ok {
 			return nil, fmt.Errorf("invalid option, must be in the form of name=value: %s", opt)
 		}
-		fn, ok := supportedOptions[name]
-		if !ok {
-			return nil, fmt.Errorf("unknown option: %s", name)
-		}
-		if err := fn(opts, value); err != nil {
-			return nil, fmt.Errorf("invalid value for %s: %w", name, err)
+		// Check if the option is supported, but don't error.
+		if fn, ok := supportedOptions[name]; ok {
+			if err := fn(opts, value); err != nil {
+				return nil, fmt.Errorf("invalid value for %s: %w", name, err)
+			}
 		}
 	}
 	return opts, nil

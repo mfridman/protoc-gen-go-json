@@ -2,7 +2,6 @@ package plugin
 
 import (
 	"context"
-	"time"
 
 	"github.com/bufbuild/protoplugin"
 	"github.com/mfridman/protoc-gen-go-json/gen"
@@ -18,7 +17,6 @@ func Handle(ctx context.Context, w *protoplugin.ResponseWriter, r *protoplugin.R
 	if err != nil {
 		return err
 	}
-	time.Sleep(5 * time.Second)
 	opt, err := parseOptions(r.Parameter())
 	if err != nil {
 		return err

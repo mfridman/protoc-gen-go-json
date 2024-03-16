@@ -14,4 +14,4 @@ test:
 
 proto-buf: build
 	export PATH=$(CURDIR)/build/:$$PATH && \
-		cd examples && buf generate
+		cd examples && buf generate proto
