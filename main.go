@@ -1,58 +1,75 @@
 package main
 
 import (
-	"flag"
+	"context"
 	"fmt"
+	"os"
+	"os/signal"
+	"runtime"
+	"runtime/debug"
+	"strings"
+	"syscall"
 
-	"github.com/golang/glog"
-	"github.com/mfridman/protoc-gen-go-json/gen"
-	"google.golang.org/protobuf/compiler/protogen"
-	"google.golang.org/protobuf/types/pluginpb"
+	"github.com/bufbuild/protoplugin"
+	"github.com/mfridman/protoc-gen-go-json/internal/plugin"
 )
 
-var (
-	enumsAsInts  = flag.Bool("enums_as_ints", false, "render enums as integers as opposed to strings")
-	emitDefaults = flag.Bool("emit_defaults", false, "render fields with zero values")
-	origName     = flag.Bool("orig_name", false, "use original (.proto) name for fields")
-	allowUnknown = flag.Bool("allow_unknown", false, "allow messages to contain unknown fields when unmarshaling")
-)
+var version string
 
 func main() {
-	flag.Parse()
-	defer glog.Flush()
+	runArgs(os.Args[1:])
 
-	protogen.Options{
-		ParamFunc: flag.CommandLine.Set,
-	}.Run(func(gp *protogen.Plugin) error {
-		gp.SupportedFeatures = uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
-		opts := gen.Options{
-			EnumsAsInts:        *enumsAsInts,
-			EmitDefaults:       *emitDefaults,
-			OrigName:           *origName,
-			AllowUnknownFields: *allowUnknown,
+	ctx, stop := newContext()
+	defer stop()
+
+	go func() {
+		defer stop()
+		if err := protoplugin.Run(
+			ctx,
+			nil,
+			os.Stdin,
+			os.Stdout,
+			os.Stderr,
+			protoplugin.HandlerFunc(plugin.Handle),
+		); err != nil {
+			fmt.Fprintf(os.Stderr, "protoc-gen-go-json: %v\n", err)
+			os.Exit(1)
 		}
+	}()
 
-		for _, name := range gp.Request.FileToGenerate {
-			f := gp.FilesByPath[name]
+	select {
+	case <-ctx.Done():
+		stop()
+	}
+}
 
-			if len(f.Messages) == 0 {
-				glog.V(1).Infof("Skipping %s, no messages", name)
-				continue
-			}
-
-			glog.V(1).Infof("Processing %s", name)
-			glog.V(2).Infof("Generating %s\n", fmt.Sprintf("%s.pb.json.go", f.GeneratedFilenamePrefix))
-
-			gf := gp.NewGeneratedFile(fmt.Sprintf("%s.pb.json.go", f.GeneratedFilenamePrefix), f.GoImportPath)
-
-			err := gen.ApplyTemplate(gf, f, opts)
-			if err != nil {
-				gf.Skip()
-				gp.Error(err)
-				continue
+func runArgs(args []string) error {
+	if len(args) > 0 {
+		for _, arg := range args {
+			switch arg {
+			case "--version", "-version":
+				buildInfo, ok := debug.ReadBuildInfo()
+				if version == "" && ok && buildInfo != nil && buildInfo.Main.Version != "" {
+					version = buildInfo.Main.Version
+				}
+				if version == "" {
+					version = "devel"
+				}
+				fmt.Fprintf(os.Stdout, "protoc-gen-go-json version: %s\n", strings.TrimSpace(version))
+				os.Exit(0)
+			default:
+				fmt.Fprintf(os.Stderr, "protoc-gen-go-json: unknown argument: %s\n", arg)
+				os.Exit(1)
 			}
 		}
+	}
+	return nil
+}
 
-		return nil
-	})
+func newContext() (context.Context, context.CancelFunc) {
+	signals := []os.Signal{os.Interrupt}
+	if runtime.GOOS != "windows" {
+		signals = append(signals, syscall.SIGTERM)
+	}
+	return signal.NotifyContext(context.Background(), signals...)
 }

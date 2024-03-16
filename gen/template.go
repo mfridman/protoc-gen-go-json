@@ -4,7 +4,6 @@ import (
 	"io"
 	"text/template"
 
-	"github.com/golang/glog"
 	"google.golang.org/protobuf/compiler/protogen"
 )
 
@@ -17,7 +16,7 @@ type Options struct {
 }
 
 // This function is called with a param which contains the entire definition of a method.
-func ApplyTemplate(w io.Writer, f *protogen.File, opts Options) error {
+func ApplyTemplate(w io.Writer, f *protogen.File, opts *Options) error {
 
 	if err := headerTemplate.Execute(w, tplHeader{
 		File: f,
@@ -28,15 +27,12 @@ func ApplyTemplate(w io.Writer, f *protogen.File, opts Options) error {
 	return applyMessages(w, f.Messages, opts)
 }
 
-func applyMessages(w io.Writer, msgs []*protogen.Message, opts Options) error {
+func applyMessages(w io.Writer, msgs []*protogen.Message, opts *Options) error {
 	for _, m := range msgs {
 
 		if m.Desc.IsMapEntry() {
-			glog.V(2).Infof("Skipping %s, mapentry message", m.GoIdent.GoName)
 			continue
 		}
-
-		glog.V(2).Infof("Processing %s", m.GoIdent.GoName)
 		if err := messageTemplate.Execute(w, tplMessage{
 			Message: m,
 			Options: opts,
@@ -59,7 +55,7 @@ type tplHeader struct {
 
 type tplMessage struct {
 	*protogen.Message
-	Options
+	*Options
 }
 
 var (
