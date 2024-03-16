@@ -5,7 +5,7 @@ go 1.21.5
 require (
 	github.com/golang/glog v1.2.0
 	github.com/stretchr/testify v1.3.0
-	google.golang.org/protobuf v1.31.0
+	google.golang.org/protobuf v1.33.0
 )
 
 require (

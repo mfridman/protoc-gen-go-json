@@ -10,7 +10,7 @@ message Basic {
   string a = 1;
 
   oneof b {
-    int32  int = 2;
+    int32 int = 2;
     string str = 3;
   }
 

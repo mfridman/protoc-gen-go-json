@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package api.v1;
+
+// Request is a message that can be sent to the server.
+message Request {
+  oneof kind {
+    string name = 1;
+    int32 code = 2;
+  }
+}
