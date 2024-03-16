@@ -6,7 +6,7 @@ build:
 .PHONY: proto
 proto: build
 	export PATH=$(CURDIR)/build/:$$PATH && \
-	    protoc --go_out=. -I./e2e --go-json_out=orig_name=true,orig_name=true:. e2e/*.proto
+	    protoc --go_out=. -I./e2e --go-json_out=orig_name=true:. e2e/*.proto
 
 .PHONY: test
 test:
