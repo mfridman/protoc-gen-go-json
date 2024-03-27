@@ -34,7 +34,7 @@ func Handle(ctx context.Context, w *protoplugin.ResponseWriter, r *protoplugin.R
 
 func generate(p *protogen.Plugin, opt *gen.Options) error {
 	for _, f := range p.Files {
-		if len(f.Messages) == 0 {
+		if !f.Generate || len(f.Messages) == 0 {
 			continue
 		}
 		g := p.NewGeneratedFile(f.GeneratedFilenamePrefix+defaultFilenameSuffix, f.GoImportPath)
