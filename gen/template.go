@@ -12,6 +12,7 @@ import (
 type Options struct {
 	EnumsAsInts        bool
 	EmitDefaults       bool
+	EmitDefaultValues  bool
 	OrigName           bool
 	AllowUnknownFields bool
 }
@@ -78,6 +79,7 @@ func (msg *{{.GoIdent.GoName}}) MarshalJSON() ([]byte,error) {
 		UseEnumNumbers: {{.EnumsAsInts}},
 		EmitUnpopulated: {{.EmitDefaults}},
 		UseProtoNames: {{.OrigName}},
+		EmitDefaultValues: {{.EmitDefaultValues}},
 	}.Marshal(msg)
 }
 

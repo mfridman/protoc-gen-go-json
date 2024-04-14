@@ -6,10 +6,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=
 github.com/google/go-cmp v0.6.0/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
-github.com/mfridman/buildversion v0.1.1 h1:OsYN2KUcZlwP5i1dcI5hSRqFcc9Xh2NVsp/C/LID18A=
-github.com/mfridman/buildversion v0.1.1/go.mod h1:7kw4V8Zj+hC8vr1yLmogCiqwvaiulc8TUGL2tnyhFjc=
-github.com/mfridman/buildversion v0.2.0 h1:ftftuPYkulAUYU5A4V19NVoONFgVGpUHfXtI+V8uwmg=
-github.com/mfridman/buildversion v0.2.0/go.mod h1:sfXvYxwfmLvkklTJLv9xJ0Wffw57z9ZFOK4KOGJYafU=
+github.com/mfridman/buildversion v0.3.0 h1:hehEX3IbBZJBqquXctUEOWJfIM46P0ku9naK9h1BGuY=
+github.com/mfridman/buildversion v0.3.0/go.mod h1:sfXvYxwfmLvkklTJLv9xJ0Wffw57z9ZFOK4KOGJYafU=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=

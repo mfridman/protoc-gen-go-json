@@ -9,9 +9,12 @@ import (
 )
 
 var supportedOptions = map[string]func(*gen.Options, string) error{
-	"enums_as_ints": func(o *gen.Options, value string) error { return parseBool(&o.EnumsAsInts, value) },
-	"emit_defaults": func(o *gen.Options, value string) error { return parseBool(&o.EmitDefaults, value) },
-	"orig_name":     func(o *gen.Options, value string) error { return parseBool(&o.OrigName, value) },
+	// Marshal options
+	"enums_as_ints":              func(o *gen.Options, value string) error { return parseBool(&o.EnumsAsInts, value) },
+	"emit_defaults":              func(o *gen.Options, value string) error { return parseBool(&o.EmitDefaults, value) },
+	"emit_defaults_without_null": func(o *gen.Options, value string) error { return parseBool(&o.EmitDefaultValues, value) },
+	"orig_name":                  func(o *gen.Options, value string) error { return parseBool(&o.OrigName, value) },
+	// Unmarshal options
 	"allow_unknown": func(o *gen.Options, value string) error { return parseBool(&o.AllowUnknownFields, value) },
 }
 
