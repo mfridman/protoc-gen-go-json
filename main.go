@@ -47,7 +47,7 @@ func runArgs(args []string) error {
 		for _, arg := range args {
 			switch arg {
 			case "--version", "-version":
-				fmt.Fprintf(os.Stdout, "protoc-gen-go-json version: %s\n", buildversion.New(version))
+				fmt.Fprintf(os.Stdout, "protoc-gen-go-json version: %s\n", buildversion.New())
 				os.Exit(0)
 			default:
 				fmt.Fprintf(os.Stderr, "protoc-gen-go-json: unknown argument: %s\n", arg)
