@@ -13,8 +13,6 @@ import (
 	"github.com/mfridman/protoc-gen-go-json/internal/plugin"
 )
 
-var version string
-
 func main() {
 	runArgs(os.Args[1:])
 
