@@ -14,10 +14,15 @@ This enables Go-generated protobuf messages to be embedded directly within other
 with the standard JSON library, since the standard `encoding/json` library can't encode certain
 protobuf messages such as those that contain `oneof` fields.
 
+> [!TIP]
+>
+> For list of chanegs between versions, see the [CHANGELOG.md](CHANGELOG.md).
+
 ## Install
 
 ```
 go install github.com/mfridman/protoc-gen-go-json@latest
+protoc-gen-go-json --version
 ```
 
 Also required:
@@ -89,7 +94,7 @@ var result Request
 json.Unmarshal(bs, &result)
 ```
 
-### Options
+## Options
 
 The generator supports options to control the behavior of the generated code. The options are passed
 as a comma-separated list to the `--go-json_out` flag.
