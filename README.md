@@ -14,10 +14,15 @@ This enables Go-generated protobuf messages to be embedded directly within other
 with the standard JSON library, since the standard `encoding/json` library can't encode certain
 protobuf messages such as those that contain `oneof` fields.
 
+> [!TIP]
+>
+> For list of chanegs between versions, see the [CHANGELOG.md](CHANGELOG.md).
+
 ## Install
 
 ```
 go install github.com/mfridman/protoc-gen-go-json@latest
+protoc-gen-go-json --version
 ```
 
 Also required:
@@ -89,14 +94,33 @@ var result Request
 json.Unmarshal(bs, &result)
 ```
 
-### Options
+## Options
 
-The generator supports options you can specify via the command-line:
+The generator supports options to control the behavior of the generated code. The options are passed
+as a comma-separated list to the `--go-json_out` flag.
 
-- `enums_as_ints={bool}` - Render enums as integers instead of strings.
-- `emit_defaults={bool}` - Render fields with zero values.
-- `orig_name={bool}` - Use original (.proto file) name for fields.
-- `allow_unknown={bool}` - Allow messages to contain unknown fields when unmarshaling
+#### Marshal Options
+
+See the
+[protojson.MarshalOptions](https://pkg.go.dev/google.golang.org/protobuf/encoding/protojson#MarshalOptions)
+for documentation on these options.
+
+| Option                       | Description                                        | Default |
+| ---------------------------- | -------------------------------------------------- | ------- |
+| `enums_as_ints`              | Render enums as integers instead of strings        | `false` |
+| `emit_defaults`              | Render fields with zero values                     | `false` |
+| `emit_defaults_without_null` | Render fields with zero values without null values | `false` |
+| `orig_name`                  | Use original (.proto file) name for fields         | `false` |
+
+#### Unmarshal Options
+
+See the
+[protojson.UnmarshalOptions](https://pkg.go.dev/google.golang.org/protobuf/encoding/protojson#UnmarshalOptions)
+for documentation on these options.
+
+| Option          | Description                               | Default |
+| --------------- | ----------------------------------------- | ------- |
+| `allow_unknown` | Disallow unknown fields when unmarshaling | `false` |
 
 It also includes the "standard" options available to all
 [protogen](https://pkg.go.dev/google.golang.org/protobuf/compiler/protogen?tab=doc)-based plugins:

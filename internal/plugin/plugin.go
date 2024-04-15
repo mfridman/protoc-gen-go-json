@@ -12,7 +12,12 @@ const (
 	defaultFilenameSuffix = ".pb.json.go"
 )
 
-func Handle(ctx context.Context, w *protoplugin.ResponseWriter, r *protoplugin.Request) error {
+func Handle(
+	ctx context.Context,
+	env protoplugin.PluginEnv,
+	w protoplugin.ResponseWriter,
+	r protoplugin.Request,
+) error {
 	p, err := protogen.Options{}.New(r.CodeGeneratorRequest())
 	if err != nil {
 		return err
