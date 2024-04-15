@@ -10,47 +10,35 @@ import (
 // MarshalJSON implements json.Marshaler
 func (msg *Basic) MarshalJSON() ([]byte, error) {
 	return protojson.MarshalOptions{
-		UseEnumNumbers:  false,
-		EmitUnpopulated: false,
-		UseProtoNames:   true,
+		UseProtoNames: true,
 	}.Marshal(msg)
 }
 
 // UnmarshalJSON implements json.Unmarshaler
 func (msg *Basic) UnmarshalJSON(b []byte) error {
-	return protojson.UnmarshalOptions{
-		DiscardUnknown: false,
-	}.Unmarshal(b, msg)
+	return protojson.UnmarshalOptions{}.Unmarshal(b, msg)
 }
 
 // MarshalJSON implements json.Marshaler
 func (msg *Nested) MarshalJSON() ([]byte, error) {
 	return protojson.MarshalOptions{
-		UseEnumNumbers:  false,
-		EmitUnpopulated: false,
-		UseProtoNames:   true,
+		UseProtoNames: true,
 	}.Marshal(msg)
 }
 
 // UnmarshalJSON implements json.Unmarshaler
 func (msg *Nested) UnmarshalJSON(b []byte) error {
-	return protojson.UnmarshalOptions{
-		DiscardUnknown: false,
-	}.Unmarshal(b, msg)
+	return protojson.UnmarshalOptions{}.Unmarshal(b, msg)
 }
 
 // MarshalJSON implements json.Marshaler
 func (msg *Nested_Message) MarshalJSON() ([]byte, error) {
 	return protojson.MarshalOptions{
-		UseEnumNumbers:  false,
-		EmitUnpopulated: false,
-		UseProtoNames:   true,
+		UseProtoNames: true,
 	}.Marshal(msg)
 }
 
 // UnmarshalJSON implements json.Unmarshaler
 func (msg *Nested_Message) UnmarshalJSON(b []byte) error {
-	return protojson.UnmarshalOptions{
-		DiscardUnknown: false,
-	}.Unmarshal(b, msg)
+	return protojson.UnmarshalOptions{}.Unmarshal(b, msg)
 }

@@ -76,17 +76,27 @@ import (
 // MarshalJSON implements json.Marshaler
 func (msg *{{.GoIdent.GoName}}) MarshalJSON() ([]byte,error) {
 	return protojson.MarshalOptions {
+		{{- if .EnumsAsInts}}
 		UseEnumNumbers: {{.EnumsAsInts}},
+		{{- end}}
+		{{- if .EmitDefaults}}
 		EmitUnpopulated: {{.EmitDefaults}},
+		{{- end}}
+		{{- if .OrigName}}
 		UseProtoNames: {{.OrigName}},
+		{{- end}}
+		{{- if .EmitDefaultValues}}
 		EmitDefaultValues: {{.EmitDefaultValues}},
+		{{- end}}
 	}.Marshal(msg)
 }
 
 // UnmarshalJSON implements json.Unmarshaler
 func (msg *{{.GoIdent.GoName}}) UnmarshalJSON(b []byte) error {
 	return protojson.UnmarshalOptions {
+		{{- if .AllowUnknownFields}}
 		DiscardUnknown: {{.AllowUnknownFields}},
+		{{- end}}
 	}.Unmarshal(b, msg)
 }
 `))

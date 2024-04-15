@@ -23,10 +23,13 @@ func main() {
 		defer stop()
 		if err := protoplugin.Run(
 			ctx,
-			nil,
-			os.Stdin,
-			os.Stdout,
-			os.Stderr,
+			protoplugin.Env{
+				Args:    os.Args[1:],
+				Stdin:   os.Stdin,
+				Stdout:  os.Stdout,
+				Stderr:  os.Stderr,
+				Environ: os.Environ(),
+			},
 			protoplugin.HandlerFunc(plugin.Handle),
 		); err != nil {
 			fmt.Fprintf(os.Stderr, "protoc-gen-go-json: %v\n", err)
