@@ -7,7 +7,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [v1.3.2] - 2024-04-14
+## [v1.4.0] - 2024-04-14
 
 - Add a changelog to the project, based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add new `emit_defaults_without_null` option (#5)
@@ -27,5 +27,5 @@ func (msg *Basic) MarshalJSON() ([]byte, error) {
 }
 ```
 
-[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.3.2...HEAD
-[v1.3.2]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.3.2
+[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.4.0...HEAD
+[v1.4.0]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.4.0
