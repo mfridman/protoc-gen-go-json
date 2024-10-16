@@ -32,7 +32,7 @@ func Handle(
 
 	response := p.Response()
 	w.AddCodeGeneratorResponseFiles(response.GetFile()...)
-	w.SetError(response.GetError())
+	w.AddError(response.GetError())
 	w.SetFeatureProto3Optional()
 	return nil
 }

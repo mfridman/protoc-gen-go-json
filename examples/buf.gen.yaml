@@ -1,13 +1,14 @@
-version: v1
+version: v2
 
 # Learn more about managed mode, see https://buf.build/docs/generate/managed-mode
 
 managed:
   enabled: true
-  go_package_prefix:
-    default: github.com/mfridman/protoc-gen-go-json/examples/gen/go
+  override:
+    - file_option: go_package_prefix
+      value: github.com/mfridman/protoc-gen-go-json/examples/gen/go
 
-# Avoid installing plugins locally by using Buf Remote Plugins. A curated set of plugins that are
+# Avoid installing plugins locally by using Buf Remote plugins. A curated set of plugins that are
 # automatically kept up-to-date, packaged, tested and distributed. Simply reference a plugin by its
 # reference, and Buf will handle the rest. For a list of available plugins, see:
 #
@@ -16,11 +17,13 @@ managed:
 # Learn more about Remote Plugins at https://buf.build/docs/generate/remote-plugins
 
 plugins:
-  - plugin: buf.build/protocolbuffers/go
+  - remote: buf.build/protocolbuffers/go
     out: gen/go
     opt: paths=source_relative
-  - plugin: go-json
+  - local: protoc-gen-go-json
     out: gen/go
     opt:
       - paths=source_relative
       - orig_name=true
+
+clean: true
