@@ -28,7 +28,7 @@ protoc-gen-go-json --version
 Also required:
 
 - [protoc](https://github.com/google/protobuf) or [buf](https://github.com/bufbuild/buf)
-- [protoc-gen-go](https://github.com/golang/protobuf)
+- [protoc-gen-go](https://pkg.go.dev/google.golang.org/protobuf)
 
 ## Usage
 
