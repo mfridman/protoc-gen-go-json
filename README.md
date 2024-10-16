@@ -37,6 +37,8 @@ Define your messages like normal:
 ```proto
 syntax = "proto3";
 
+package api.v1;
+
 message Request {
   oneof kind {
     string name = 1;
@@ -57,12 +59,12 @@ protoc --go_out=. --go-json_out=. request.proto
 #### Using `buf`
 
 ```yaml
-version: v1
+version: v2
 plugins:
-  - name: buf.build/protocolbuffers/go
+  - remote: buf.build/protocolbuffers/go
     out: gen/go
     opt: paths=source_relative
-  - name: buf.build/community/mfridman-go-json
+  - remote: buf.build/community/mfridman-go-json
     out: gen/go
     opt:
       - paths=source_relative
@@ -80,18 +82,31 @@ Your output should contain a file `request.pb.json.go` which contains the implem
 standard `encoding/json`:
 
 ```go
-import "encoding/json"
-
 // Marshal
-bs, err := json.Marshal(&Request{
-  Kind: &Kind_Name{
+by, err := json.Marshal(&apiv1.Request{
+  Kind: &apiv1.Request_Name{
     Name: "alice",
-  },
+	},
+})
+if err != nil {
+  log.Fatal(err)
 }
+fmt.Println(string(by))
+// {"name":"alice"}
 
 // Unmarshal
-var result Request
-json.Unmarshal(bs, &result)
+var request apiv1.Request
+if err := json.Unmarshal(by, &request); err != nil {
+	log.Fatal(err)
+}
+fmt.Println(request.GetName())
+// alice
+```
+
+From the root of this repository, you can run the following to see the example in action:
+
+```sh
+go run ./examples
 ```
 
 ## Options
