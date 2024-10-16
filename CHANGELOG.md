@@ -7,6 +7,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [v1.4.1] - 2024-10-16
+
+- General housekeeping and dependency updates.
+
 ## [v1.4.0] - 2024-04-14
 
 - Add a changelog to the project, based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
@@ -27,5 +31,6 @@ func (msg *Basic) MarshalJSON() ([]byte, error) {
 }
 ```
 
-[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.4.1...HEAD
+[v1.4.1]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.4.1
 [v1.4.0]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.4.0
