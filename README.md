@@ -88,17 +88,12 @@ by, err := json.Marshal(&apiv1.Request{
     Name: "alice",
 	},
 })
-if err != nil {
-  log.Fatal(err)
-}
 fmt.Println(string(by))
 // {"name":"alice"}
 
 // Unmarshal
 var request apiv1.Request
-if err := json.Unmarshal(by, &request); err != nil {
-	log.Fatal(err)
-}
+err := json.Unmarshal(by, &request)
 fmt.Println(request.GetName())
 // alice
 ```
