@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/mfridman/protoc-gen-go-json/gen"
+	"github.com/mfridman/protoc-gen-go-json/internal/gen"
 )
 
 var supportedOptions = map[string]func(*gen.Options, string) error{

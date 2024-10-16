@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/bufbuild/protoplugin"
-	"github.com/mfridman/protoc-gen-go-json/gen"
+	"github.com/mfridman/protoc-gen-go-json/internal/gen"
 	"google.golang.org/protobuf/compiler/protogen"
 )
 
