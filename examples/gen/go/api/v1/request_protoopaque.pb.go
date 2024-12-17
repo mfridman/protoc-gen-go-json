@@ -9,7 +9,7 @@
 
 // Package api.v1 is a versioned API.
 
-//go:build !protoopaque
+//go:build protoopaque
 
 package apiv1
 
@@ -28,14 +28,10 @@ const (
 
 // Request is a message that can be sent to the server.
 type Request struct {
-	state protoimpl.MessageState `protogen:"hybrid.v1"`
-	// Types that are valid to be assigned to Kind:
-	//
-	//	*Request_Name
-	//	*Request_Code
-	Kind          isRequest_Kind `protobuf_oneof:"kind"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Kind isRequest_Kind         `protobuf_oneof:"kind"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *Request) Reset() {
@@ -63,16 +59,9 @@ func (x *Request) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-func (x *Request) GetKind() isRequest_Kind {
-	if x != nil {
-		return x.Kind
-	}
-	return nil
-}
-
 func (x *Request) GetName() string {
 	if x != nil {
-		if x, ok := x.Kind.(*Request_Name); ok {
+		if x, ok := x.xxx_hidden_Kind.(*request_Name); ok {
 			return x.Name
 		}
 	}
@@ -81,7 +70,7 @@ func (x *Request) GetName() string {
 
 func (x *Request) GetCode() int32 {
 	if x != nil {
-		if x, ok := x.Kind.(*Request_Code); ok {
+		if x, ok := x.xxx_hidden_Kind.(*request_Code); ok {
 			return x.Code
 		}
 	}
@@ -89,25 +78,25 @@ func (x *Request) GetCode() int32 {
 }
 
 func (x *Request) SetName(v string) {
-	x.Kind = &Request_Name{v}
+	x.xxx_hidden_Kind = &request_Name{v}
 }
 
 func (x *Request) SetCode(v int32) {
-	x.Kind = &Request_Code{v}
+	x.xxx_hidden_Kind = &request_Code{v}
 }
 
 func (x *Request) HasKind() bool {
 	if x == nil {
 		return false
 	}
-	return x.Kind != nil
+	return x.xxx_hidden_Kind != nil
 }
 
 func (x *Request) HasName() bool {
 	if x == nil {
 		return false
 	}
-	_, ok := x.Kind.(*Request_Name)
+	_, ok := x.xxx_hidden_Kind.(*request_Name)
 	return ok
 }
 
@@ -115,23 +104,23 @@ func (x *Request) HasCode() bool {
 	if x == nil {
 		return false
 	}
-	_, ok := x.Kind.(*Request_Code)
+	_, ok := x.xxx_hidden_Kind.(*request_Code)
 	return ok
 }
 
 func (x *Request) ClearKind() {
-	x.Kind = nil
+	x.xxx_hidden_Kind = nil
 }
 
 func (x *Request) ClearName() {
-	if _, ok := x.Kind.(*Request_Name); ok {
-		x.Kind = nil
+	if _, ok := x.xxx_hidden_Kind.(*request_Name); ok {
+		x.xxx_hidden_Kind = nil
 	}
 }
 
 func (x *Request) ClearCode() {
-	if _, ok := x.Kind.(*Request_Code); ok {
-		x.Kind = nil
+	if _, ok := x.xxx_hidden_Kind.(*request_Code); ok {
+		x.xxx_hidden_Kind = nil
 	}
 }
 
@@ -143,10 +132,10 @@ func (x *Request) WhichKind() case_Request_Kind {
 	if x == nil {
 		return Request_Kind_not_set_case
 	}
-	switch x.Kind.(type) {
-	case *Request_Name:
+	switch x.xxx_hidden_Kind.(type) {
+	case *request_Name:
 		return Request_Name_case
-	case *Request_Code:
+	case *request_Code:
 		return Request_Code_case
 	default:
 		return Request_Kind_not_set_case
@@ -156,10 +145,10 @@ func (x *Request) WhichKind() case_Request_Kind {
 type Request_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
-	// Fields of oneof Kind:
+	// Fields of oneof xxx_hidden_Kind:
 	Name *string
 	Code *int32
-	// -- end of Kind
+	// -- end of xxx_hidden_Kind
 }
 
 func (b0 Request_builder) Build() *Request {
@@ -167,10 +156,10 @@ func (b0 Request_builder) Build() *Request {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.Name != nil {
-		x.Kind = &Request_Name{*b.Name}
+		x.xxx_hidden_Kind = &request_Name{*b.Name}
 	}
 	if b.Code != nil {
-		x.Kind = &Request_Code{*b.Code}
+		x.xxx_hidden_Kind = &request_Code{*b.Code}
 	}
 	return m0
 }
@@ -189,17 +178,17 @@ type isRequest_Kind interface {
 	isRequest_Kind()
 }
 
-type Request_Name struct {
+type request_Name struct {
 	Name string `protobuf:"bytes,1,opt,name=name,proto3,oneof"`
 }
 
-type Request_Code struct {
+type request_Code struct {
 	Code int32 `protobuf:"varint,2,opt,name=code,proto3,oneof"`
 }
 
-func (*Request_Name) isRequest_Kind() {}
+func (*request_Name) isRequest_Kind() {}
 
-func (*Request_Code) isRequest_Kind() {}
+func (*request_Code) isRequest_Kind() {}
 
 var File_api_v1_request_proto protoreflect.FileDescriptor
 
@@ -240,8 +229,8 @@ func file_api_v1_request_proto_init() {
 		return
 	}
 	file_api_v1_request_proto_msgTypes[0].OneofWrappers = []any{
-		(*Request_Name)(nil),
-		(*Request_Code)(nil),
+		(*request_Name)(nil),
+		(*request_Code)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
