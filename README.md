@@ -81,6 +81,26 @@ Your output should contain a file `request.pb.json.go` which contains the implem
 `json.Marshal/Unmarshal` for all your message types. You can then encode your messages using
 standard `encoding/json`:
 
+#### Opaque API (added in google.golang.org/protobuf `v1.36.0`)
+
+```go
+// Marshal
+//
+// Use a builder
+req := apiv1.Request_builder{
+	Name: proto.String("alice"),
+}.Build()
+// Or, use the setter
+req := &apiv1.Request{}
+req.SetName("alice")
+
+by, err := json.Marshal(req)
+fmt.Println(string(by))
+// {"name":"alice"}
+```
+
+#### Open API (access to the underlying fields)
+
 ```go
 // Marshal
 by, err := json.Marshal(&apiv1.Request{

@@ -19,7 +19,9 @@ managed:
 plugins:
   - remote: buf.build/protocolbuffers/go
     out: gen/go
-    opt: paths=source_relative
+    opt: 
+      - paths=source_relative
+      - default_api_level=API_HYBRID
   - local: protoc-gen-go-json
     out: gen/go
     opt:

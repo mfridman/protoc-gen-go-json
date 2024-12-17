@@ -2,8 +2,6 @@
    Some license stuff
 */
 
-//go:build !windows
-
 syntax = "proto3";
 
 // Package api.v1 is a versioned API.
