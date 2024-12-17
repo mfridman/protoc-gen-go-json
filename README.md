@@ -88,7 +88,7 @@ standard `encoding/json`:
 //
 // Use a builder
 req := apiv1.Request_builder{
-	Name: proto.String("alice"),
+  Name: proto.String("alice"),
 }.Build()
 // Or, use the setter
 req := &apiv1.Request{}
@@ -106,7 +106,7 @@ fmt.Println(string(by))
 by, err := json.Marshal(&apiv1.Request{
   Kind: &apiv1.Request_Name{
     Name: "alice",
-	},
+  },
 })
 fmt.Println(string(by))
 // {"name":"alice"}
