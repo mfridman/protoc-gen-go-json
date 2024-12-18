@@ -6,6 +6,7 @@ import (
 	"github.com/bufbuild/protoplugin"
 	"github.com/mfridman/protoc-gen-go-json/internal/gen"
 	"google.golang.org/protobuf/compiler/protogen"
+	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 const (
@@ -34,6 +35,7 @@ func Handle(
 	w.AddCodeGeneratorResponseFiles(response.GetFile()...)
 	w.AddError(response.GetError())
 	w.SetFeatureProto3Optional()
+	w.SetFeatureSupportsEditions(descriptorpb.Edition_EDITION_PROTO3, descriptorpb.Edition_EDITION_MAX)
 	return nil
 }
 

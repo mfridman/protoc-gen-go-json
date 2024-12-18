@@ -5,7 +5,7 @@ go 1.23.2
 require (
 	github.com/bufbuild/protoplugin v0.0.0-20240911180120-7bb73e41a54a
 	github.com/mfridman/buildversion v0.3.0
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	google.golang.org/protobuf v1.36.0
 )
 
