@@ -7,6 +7,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [v1.5.0] - 2025-01-09
+
+- Correctly handle Protobuf Editions.
+
 ## [v1.4.1] - 2024-10-16
 
 - General housekeeping and dependency updates.
@@ -31,6 +35,7 @@ func (msg *Basic) MarshalJSON() ([]byte, error) {
 }
 ```
 
-[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.4.1...HEAD
+[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.5.0...HEAD
+[v1.5.0]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.5.0
 [v1.4.1]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.4.1
 [v1.4.0]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.4.0
