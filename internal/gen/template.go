@@ -15,6 +15,7 @@ type Options struct {
 	EmitDefaultValues  bool
 	OrigName           bool
 	AllowUnknownFields bool
+	EmitScannerValuer  bool
 }
 
 // This function is called with a param which contains the entire definition of a method.
@@ -29,7 +30,8 @@ func ApplyTemplate(g *protogen.GeneratedFile, f *protogen.File, opts *Options) e
 	g.P()
 	genStandaloneComments(g, f, packageFieldNumber)
 	if err := headerTemplate.Execute(g, tplHeader{
-		File: f,
+		File:    f,
+		Options: opts,
 	}); err != nil {
 		return err
 	}
@@ -56,6 +58,7 @@ func applyMessages(w io.Writer, msgs []*protogen.Message, opts *Options) error {
 
 type tplHeader struct {
 	*protogen.File
+	*Options
 }
 
 type tplMessage struct {
@@ -68,6 +71,11 @@ var (
 package {{.GoPackageName}}
 
 import (
+	{{- if .EmitScannerValuer}}
+	"database/sql/driver"
+	"fmt"
+	{{- end}}
+
 	"google.golang.org/protobuf/encoding/protojson"
 )
 `))
@@ -99,6 +107,41 @@ func (msg *{{.GoIdent.GoName}}) UnmarshalJSON(b []byte) error {
 		{{- end}}
 	}.Unmarshal(b, msg)
 }
+{{- if .EmitScannerValuer}}
+
+// Scan implements database/sql.Scanner
+func (msg *{{.GoIdent.GoName}}) Scan(src any) error {
+	if msg == nil {
+		return fmt.Errorf("{{.GoIdent.GoName}}.Scan: nil receiver")
+	}
+	if src == nil {
+		*msg = {{.GoIdent.GoName}}{}
+		return nil
+	}
+	var b []byte
+	switch v := src.(type) {
+	case []byte:
+		b = v
+	case string:
+		b = []byte(v)
+	default:
+		return fmt.Errorf("{{.GoIdent.GoName}}.Scan: expected []byte or string, got %T", src)
+	}
+	return msg.UnmarshalJSON(b)
+}
+
+// Value implements database/sql/driver.Valuer
+func (msg *{{.GoIdent.GoName}}) Value() (driver.Value, error) {
+	if msg == nil {
+		return nil, nil
+	}
+	b, err := msg.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return string(b), nil
+}
+{{- end}}
 `))
 )
 

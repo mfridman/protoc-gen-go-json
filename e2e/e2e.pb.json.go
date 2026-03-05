@@ -4,6 +4,9 @@
 package e2e
 
 import (
+	"database/sql/driver"
+	"fmt"
+
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
@@ -19,6 +22,39 @@ func (msg *Basic) UnmarshalJSON(b []byte) error {
 	return protojson.UnmarshalOptions{}.Unmarshal(b, msg)
 }
 
+// Scan implements database/sql.Scanner
+func (msg *Basic) Scan(src any) error {
+	if msg == nil {
+		return fmt.Errorf("Basic.Scan: nil receiver")
+	}
+	if src == nil {
+		*msg = Basic{}
+		return nil
+	}
+	var b []byte
+	switch v := src.(type) {
+	case []byte:
+		b = v
+	case string:
+		b = []byte(v)
+	default:
+		return fmt.Errorf("Basic.Scan: expected []byte or string, got %T", src)
+	}
+	return msg.UnmarshalJSON(b)
+}
+
+// Value implements database/sql/driver.Valuer
+func (msg *Basic) Value() (driver.Value, error) {
+	if msg == nil {
+		return nil, nil
+	}
+	b, err := msg.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return string(b), nil
+}
+
 // MarshalJSON implements json.Marshaler
 func (msg *Nested) MarshalJSON() ([]byte, error) {
 	return protojson.MarshalOptions{
@@ -31,6 +67,39 @@ func (msg *Nested) UnmarshalJSON(b []byte) error {
 	return protojson.UnmarshalOptions{}.Unmarshal(b, msg)
 }
 
+// Scan implements database/sql.Scanner
+func (msg *Nested) Scan(src any) error {
+	if msg == nil {
+		return fmt.Errorf("Nested.Scan: nil receiver")
+	}
+	if src == nil {
+		*msg = Nested{}
+		return nil
+	}
+	var b []byte
+	switch v := src.(type) {
+	case []byte:
+		b = v
+	case string:
+		b = []byte(v)
+	default:
+		return fmt.Errorf("Nested.Scan: expected []byte or string, got %T", src)
+	}
+	return msg.UnmarshalJSON(b)
+}
+
+// Value implements database/sql/driver.Valuer
+func (msg *Nested) Value() (driver.Value, error) {
+	if msg == nil {
+		return nil, nil
+	}
+	b, err := msg.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return string(b), nil
+}
+
 // MarshalJSON implements json.Marshaler
 func (msg *Nested_Message) MarshalJSON() ([]byte, error) {
 	return protojson.MarshalOptions{
@@ -41,4 +110,37 @@ func (msg *Nested_Message) MarshalJSON() ([]byte, error) {
 // UnmarshalJSON implements json.Unmarshaler
 func (msg *Nested_Message) UnmarshalJSON(b []byte) error {
 	return protojson.UnmarshalOptions{}.Unmarshal(b, msg)
+}
+
+// Scan implements database/sql.Scanner
+func (msg *Nested_Message) Scan(src any) error {
+	if msg == nil {
+		return fmt.Errorf("Nested_Message.Scan: nil receiver")
+	}
+	if src == nil {
+		*msg = Nested_Message{}
+		return nil
+	}
+	var b []byte
+	switch v := src.(type) {
+	case []byte:
+		b = v
+	case string:
+		b = []byte(v)
+	default:
+		return fmt.Errorf("Nested_Message.Scan: expected []byte or string, got %T", src)
+	}
+	return msg.UnmarshalJSON(b)
+}
+
+// Value implements database/sql/driver.Valuer
+func (msg *Nested_Message) Value() (driver.Value, error) {
+	if msg == nil {
+		return nil, nil
+	}
+	b, err := msg.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return string(b), nil
 }

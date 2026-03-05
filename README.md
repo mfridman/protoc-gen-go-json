@@ -69,6 +69,7 @@ plugins:
     opt:
       - paths=source_relative
       - orig_name=true
+      - emit_scanner_valuer=true
 ```
 
 And then run:
@@ -151,6 +152,12 @@ for documentation on these options.
 | Option          | Description                               | Default |
 | --------------- | ----------------------------------------- | ------- |
 | `allow_unknown` | Disallow unknown fields when unmarshaling | `false` |
+
+#### Additional Options
+
+| Option                | Description                                                                                                              | Default |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------- |
+| `emit_scanner_valuer` | Generate `database/sql.Scanner` and `database/sql/driver.Valuer` implementations for storing protobuf messages in database JSON columns | `false` |
 
 It also includes the "standard" options available to all
 [protogen](https://pkg.go.dev/google.golang.org/protobuf/compiler/protogen?tab=doc)-based plugins:
