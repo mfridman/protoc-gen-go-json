@@ -16,6 +16,8 @@ var supportedOptions = map[string]func(*gen.Options, string) error{
 	"orig_name":                  func(o *gen.Options, value string) error { return parseBool(&o.OrigName, value) },
 	// Unmarshal options
 	"allow_unknown": func(o *gen.Options, value string) error { return parseBool(&o.AllowUnknownFields, value) },
+	// Additional options
+	"emit_scanner_valuer": func(o *gen.Options, value string) error { return parseBool(&o.EmitScannerValuer, value) },
 }
 
 func parseOptions(raw string) (*gen.Options, error) {

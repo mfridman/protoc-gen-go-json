@@ -7,6 +7,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Add new `emit_scanner_valuer` option to generate `database/sql.Scanner` and
+  `database/sql/driver.Valuer` implementations for protobuf messages (#9). This is useful when
+  storing JSON representations of protobuf messages in database columns.
+
 ## [v1.5.0] - 2025-01-09
 
 - Correctly handle Protobuf Editions.
