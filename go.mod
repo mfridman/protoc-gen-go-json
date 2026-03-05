@@ -1,12 +1,11 @@
 module github.com/mfridman/protoc-gen-go-json
 
-go 1.23.2
+go 1.24
 
 require (
-	github.com/bufbuild/protoplugin v0.0.0-20250106231243-3a819552c9d9
-	github.com/mfridman/buildversion v0.3.0
-	github.com/stretchr/testify v1.10.0
-	google.golang.org/protobuf v1.36.2
+	github.com/bufbuild/protoplugin v0.0.0-20250218205857-750e09ce93e1
+	github.com/stretchr/testify v1.11.1
+	google.golang.org/protobuf v1.36.11
 )
 
 require (

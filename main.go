@@ -6,10 +6,10 @@ import (
 	"os"
 	"os/signal"
 	"runtime"
+	"runtime/debug"
 	"syscall"
 
 	"github.com/bufbuild/protoplugin"
-	"github.com/mfridman/buildversion"
 	"github.com/mfridman/protoc-gen-go-json/internal/plugin"
 )
 
@@ -48,7 +48,7 @@ func runArgs(args []string) error {
 		for _, arg := range args {
 			switch arg {
 			case "--version", "-version":
-				fmt.Fprintf(os.Stdout, "protoc-gen-go-json version: %s\n", buildversion.New())
+				fmt.Fprintf(os.Stdout, "protoc-gen-go-json version: %s\n", version())
 				os.Exit(0)
 			default:
 				fmt.Fprintf(os.Stderr, "protoc-gen-go-json: unknown argument: %s\n", arg)
@@ -57,6 +57,14 @@ func runArgs(args []string) error {
 		}
 	}
 	return nil
+}
+
+func version() string {
+	info, ok := debug.ReadBuildInfo()
+	if !ok || info.Main.Version == "" {
+		return "(devel)"
+	}
+	return info.Main.Version
 }
 
 func newContext() (context.Context, context.CancelFunc) {
