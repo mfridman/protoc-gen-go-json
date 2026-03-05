@@ -7,9 +7,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-- Add new `emit_scanner_valuer` option to generate `database/sql.Scanner` and
-  `database/sql/driver.Valuer` implementations for protobuf messages (#9). This is useful when
-  storing JSON representations of protobuf messages in database columns.
+## [v1.6.0] - 2026-03-05
+
+### Added
+
+- `emit_scanner_valuer` option to generate `database/sql.Scanner` and
+  `database/sql/driver.Valuer` implementations for protobuf messages. Useful for storing JSON
+  representations of protobuf messages in database columns.
 
 ## [v1.5.0] - 2025-01-09
 
@@ -39,7 +43,8 @@ func (msg *Basic) MarshalJSON() ([]byte, error) {
 }
 ```
 
-[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.6.0...HEAD
+[v1.6.0]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.5.0...v1.6.0
 [v1.5.0]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.5.0
 [v1.4.1]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.4.1
 [v1.4.0]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.4.0
