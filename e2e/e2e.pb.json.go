@@ -48,7 +48,11 @@ func (msg *Basic) Value() (driver.Value, error) {
 	if msg == nil {
 		return nil, nil
 	}
-	return msg.MarshalJSON()
+	b, err := msg.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return string(b), nil
 }
 
 // MarshalJSON implements json.Marshaler
@@ -89,7 +93,11 @@ func (msg *Nested) Value() (driver.Value, error) {
 	if msg == nil {
 		return nil, nil
 	}
-	return msg.MarshalJSON()
+	b, err := msg.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return string(b), nil
 }
 
 // MarshalJSON implements json.Marshaler
@@ -130,5 +138,9 @@ func (msg *Nested_Message) Value() (driver.Value, error) {
 	if msg == nil {
 		return nil, nil
 	}
-	return msg.MarshalJSON()
+	b, err := msg.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return string(b), nil
 }

@@ -117,7 +117,7 @@ func TestScannerValuer(t *testing.T) {
 		}
 		val, err := original.Value()
 		require.NoError(t, err)
-		require.IsType(t, []byte{}, val)
+		require.IsType(t, "", val)
 
 		got := new(Basic)
 		require.NoError(t, got.Scan(val))
@@ -129,11 +129,19 @@ func TestScannerValuer(t *testing.T) {
 		original := &Basic{A: "from-string", B: &Basic_Int{Int: 7}}
 		val, err := original.Value()
 		require.NoError(t, err)
+		require.IsType(t, "", val)
 
 		got := new(Basic)
-		require.NoError(t, got.Scan(string(val.([]byte))))
+		require.NoError(t, got.Scan(val))
 		require.Equal(t, original.GetA(), got.GetA())
 		require.Equal(t, original.GetInt(), got.GetInt())
+	})
+
+	t.Run("scan bytes input", func(t *testing.T) {
+		got := new(Basic)
+		require.NoError(t, got.Scan([]byte(`{"a":"from-bytes","int":9}`)))
+		require.Equal(t, "from-bytes", got.GetA())
+		require.Equal(t, int32(9), got.GetInt())
 	})
 
 	t.Run("scan nil resets message", func(t *testing.T) {

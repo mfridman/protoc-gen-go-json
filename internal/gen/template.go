@@ -135,7 +135,11 @@ func (msg *{{.GoIdent.GoName}}) Value() (driver.Value, error) {
 	if msg == nil {
 		return nil, nil
 	}
-	return msg.MarshalJSON()
+	b, err := msg.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return string(b), nil
 }
 {{- end}}
 `))
