@@ -7,11 +7,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-### Fixed
-
-- Template errors no longer fail silently. Before, the plugin skipped the file and reported
-  success.
-- An interrupt signal no longer makes the plugin exit with code 0 while generation is in progress.
+## [v1.7.0] - 2026-11-13
 
 ### Changed
 
@@ -19,6 +15,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   change and still works with older Go versions.
 - Update `google.golang.org/protobuf` to v1.36.12 and `github.com/bufbuild/protoplugin` to the
   latest version.
+
+### Fixed
+
+- Template errors no longer fail silently. Before, the plugin skipped the file and reported
+  success.
+- An interrupt signal no longer makes the plugin exit with code 0 while generation is in progress.
 
 ## [v1.6.0] - 2026-03-05
 
@@ -56,7 +58,8 @@ func (msg *Basic) MarshalJSON() ([]byte, error) {
 }
 ```
 
-[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.7.0...HEAD
+[v1.7.0]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.6.0...v1.7.0
 [v1.6.0]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.5.0...v1.6.0
 [v1.5.0]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.5.0
 [v1.4.1]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.4.1
