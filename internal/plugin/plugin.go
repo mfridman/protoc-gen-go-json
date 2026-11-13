@@ -2,6 +2,7 @@ package plugin
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/bufbuild/protoplugin"
 	"github.com/mfridman/protoc-gen-go-json/internal/gen"
@@ -47,7 +48,7 @@ func generate(p *protogen.Plugin, opt *gen.Options) error {
 		g := p.NewGeneratedFile(f.GeneratedFilenamePrefix+defaultFilenameSuffix, f.GoImportPath)
 		if err := gen.ApplyTemplate(g, f, opt); err != nil {
 			g.Skip()
-			return nil
+			return fmt.Errorf("generate %s: %w", f.Desc.Path(), err)
 		}
 	}
 	return nil
