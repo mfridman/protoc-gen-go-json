@@ -19,6 +19,10 @@ lint:
 fmt:
 	golangci-lint fmt ./...
 
+.PHONY: tidy
+tidy:
+	go mod tidy
+
 .PHONY: vulncheck
 vulncheck:
 	go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...

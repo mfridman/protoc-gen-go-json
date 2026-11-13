@@ -29,9 +29,7 @@ jobs:
           go-version: ${{ matrix.go-version == 'stable' && 'stable' || '' }}
           check-latest: true
       - name: Check go.mod and go.sum are tidy
-        run: |
-          go mod tidy
-          git diff --exit-code -- go.mod go.sum
+        run: go mod tidy -diff
       - name: Run tests
         run: go test ./... -count=1 -race -v
   lint:
