@@ -25,8 +25,8 @@ func parseOptions(raw string) (*gen.Options, error) {
 	if raw == "" {
 		return opts, nil
 	}
-	all := strings.Split(raw, ",")
-	for _, opt := range all {
+	all := strings.SplitSeq(raw, ",")
+	for opt := range all {
 		name, value, ok := strings.Cut(opt, "=")
 		if !ok {
 			return nil, fmt.Errorf("invalid option, must be in the form of name=value: %s", opt)

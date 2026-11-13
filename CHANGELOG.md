@@ -15,6 +15,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Go 1.27 or later is now required to build and install the plugin. The generated code does not
+  change and still works with older Go versions.
 - Update `google.golang.org/protobuf` to v1.36.12 and `github.com/bufbuild/protoplugin` to the
   latest version.
 

@@ -8,21 +8,16 @@ managed:
     - file_option: go_package_prefix
       value: github.com/mfridman/protoc-gen-go-json/examples/gen/go
 
-# Avoid installing plugins locally by using Buf Remote plugins. A curated set of plugins that are
-# automatically kept up-to-date, packaged, tested and distributed. Simply reference a plugin by its
-# reference, and Buf will handle the rest. For a list of available plugins, see:
-#
-# https://buf.build/plugins
-#
-# Learn more about Remote Plugins at https://buf.build/docs/generate/remote-plugins
-
+# Both plugins build from source, so the generated code always matches the
+# versions in go.mod. In your own project, you can use the remote plugins
+# buf.build/protocolbuffers/go and buf.build/community/mfridman-go-json.
 plugins:
-  - remote: buf.build/protocolbuffers/go
+  - local: ["go", "tool", "protoc-gen-go"]
     out: gen/go
-    opt: 
+    opt:
       - paths=source_relative
       - default_api_level=API_HYBRID
-  - local: protoc-gen-go-json
+  - local: ["go", "run", "github.com/mfridman/protoc-gen-go-json"]
     out: gen/go
     opt:
       - paths=source_relative

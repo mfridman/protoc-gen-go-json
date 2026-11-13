@@ -6,7 +6,6 @@ import (
 	"log"
 
 	apiv1 "github.com/mfridman/protoc-gen-go-json/examples/gen/go/api/v1"
-	"google.golang.org/protobuf/proto"
 )
 
 func main() {
@@ -15,7 +14,7 @@ func main() {
 	//
 	// 1. Use builder to create a request
 	req1 := apiv1.Request_builder{
-		Name: proto.String("alice"),
+		Name: new("alice"),
 	}.Build()
 	// 2. Use setter to create a request
 	// req2 := &apiv1.Request{}

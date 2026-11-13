@@ -21,7 +21,7 @@ import (
 func TestHandleMatchesCommittedE2E(t *testing.T) {
 	t.Parallel()
 
-	// Use the same parameters as the proto-protoc target in the Makefile.
+	// Use the same parameters as e2e/buf.gen.yaml.
 	response := runPlugin(t, e2e.File_e2e_proto.Path(), "orig_name=true,emit_scanner_valuer=true")
 	require.Empty(t, response.GetError())
 	require.Len(t, response.GetFile(), 1)
@@ -142,7 +142,7 @@ func newRequest(fileToGenerate string, parameter string) *pluginpb.CodeGenerator
 	}
 	return &pluginpb.CodeGeneratorRequest{
 		FileToGenerate: []string{fileToGenerate},
-		Parameter:      proto.String(parameter),
+		Parameter:      new(parameter),
 		ProtoFile:      protoFiles,
 	}
 }
