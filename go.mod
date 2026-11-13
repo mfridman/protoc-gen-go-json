@@ -14,3 +14,5 @@ retract (
 	v1.1.0 // Invalid module reference (old repo and tag)
 	v1.0.0 // Invalid module reference (old repo and tag)
 )
+
+tool google.golang.org/protobuf/cmd/protoc-gen-go

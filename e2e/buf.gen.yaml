@@ -1,0 +1,18 @@
+version: v2
+
+# Run from this directory: buf generate
+#
+# Both plugins build from source, so the generated code always matches the
+# versions in go.mod.
+plugins:
+  - local: ["go", "tool", "protoc-gen-go"]
+    out: .
+    opt:
+      - paths=source_relative
+  - local: ["go", "run", "github.com/mfridman/protoc-gen-go-json"]
+    out: .
+    opt:
+      - paths=source_relative
+      # Keep in sync with TestHandleMatchesCommittedE2E.
+      - orig_name=true
+      - emit_scanner_valuer=true

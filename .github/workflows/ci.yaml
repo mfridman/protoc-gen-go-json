@@ -81,3 +81,31 @@ jobs:
           go-version: stable
       - name: Run govulncheck
         run: go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...
+  generate:
+    name: Check generated code is up to date
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install Go
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: stable
+      - name: Install buf
+        uses: bufbuild/buf-action@37ac33d8960807670a6e9719080e885197b09cc6 # v1.7.0
+        with:
+          version: 1.75.0
+          setup_only: true
+      - name: Regenerate code
+        run: make proto
+      - name: Check for changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git status --porcelain
+            git diff
+            echo "Generated code is out of date. Run make proto and commit the result."
+            exit 1
+          fi
