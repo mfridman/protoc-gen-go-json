@@ -25,7 +25,7 @@ tidy:
 
 .PHONY: vulncheck
 vulncheck:
-	go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...
+	go tool govulncheck ./...
 
 .PHONY: pinact
 pinact:

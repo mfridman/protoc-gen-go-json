@@ -80,7 +80,7 @@ jobs:
         with:
           go-version: stable
       - name: Run govulncheck
-        run: go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...
+        run: go tool govulncheck ./...
   generate:
     name: Check generated code is up to date
     timeout-minutes: 5
