@@ -16,7 +16,7 @@ protobuf messages such as those that contain `oneof` fields.
 
 > [!TIP]
 >
-> For list of chanegs between versions, see the [CHANGELOG.md](CHANGELOG.md).
+> For a list of changes between versions, see the [CHANGELOG.md](CHANGELOG.md).
 
 ## Install
 
@@ -149,9 +149,9 @@ See the
 [protojson.UnmarshalOptions](https://pkg.go.dev/google.golang.org/protobuf/encoding/protojson#UnmarshalOptions)
 for documentation on these options.
 
-| Option          | Description                               | Default |
-| --------------- | ----------------------------------------- | ------- |
-| `allow_unknown` | Disallow unknown fields when unmarshaling | `false` |
+| Option          | Description                                           | Default |
+| --------------- | ----------------------------------------------------- | ------- |
+| `allow_unknown` | Ignore unknown fields when unmarshaling, do not error | `false` |
 
 #### Additional Options
 
@@ -162,26 +162,28 @@ for documentation on these options.
 It also includes the "standard" options available to all
 [protogen](https://pkg.go.dev/google.golang.org/protobuf/compiler/protogen?tab=doc)-based plugins:
 
-- `import_path={path}` - Override the import path
 - `paths=source_relative` - Derive the output path from the input path
-- etc.
+- `module={prefix}` - Remove a module prefix from the output path
+- `M{file}={import_path}` - Set the Go import path for a .proto file
 
-These can be set as part of the `--go-json_out` value:
+Unknown options are ignored.
+
+These can be set as part of the `--go-json_out` value, before a `:` and the output directory:
 
 ```sh
-protoc --go-json_opt=emit_defaults=true:.
+protoc --go-json_out=emit_defaults=true:. request.proto
 ```
 
 You can specify multiple using a `,`:
 
 ```sh
-protoc --go-json_out=enums_as_ints=true,emit_defaults=true:.
+protoc --go-json_out=enums_as_ints=true,emit_defaults=true:. request.proto
 ```
 
 Alternatively, you may also specify options using the `--go-json_opt` value:
 
 ```sh
-protoc --go-json_out:. --go-json_opt=emit_defaults=true,enums_as_ints=true
+protoc --go-json_out=. --go-json_opt=emit_defaults=true,enums_as_ints=true request.proto
 ```
 
 ## Acknowledgements
