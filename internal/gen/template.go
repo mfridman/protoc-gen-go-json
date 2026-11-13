@@ -18,7 +18,7 @@ type Options struct {
 	EmitScannerValuer  bool
 }
 
-// This function is called with a param which contains the entire definition of a method.
+// ApplyTemplate writes the JSON methods for all messages in f to g.
 func ApplyTemplate(g *protogen.GeneratedFile, f *protogen.File, opts *Options) error {
 	const (
 		syntaxFieldNumber  = 12
