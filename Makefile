@@ -15,6 +15,10 @@ test:
 lint:
 	golangci-lint run ./...
 
+.PHONY: vulncheck
+vulncheck:
+	go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...
+
 .PHONY: proto-buf
 proto-buf: build
 	export PATH=$(CURDIR)/build/:$$PATH && \
