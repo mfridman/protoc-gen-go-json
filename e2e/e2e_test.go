@@ -19,8 +19,8 @@ func TestTable(t *testing.T) {
 
 		// Value and Expected MUST be pointers to structs. If Expected is
 		// nil, then it is expected to be identical to Value.
-		Value    interface{}
-		Expected interface{}
+		Value    any
+		Expected any
 	}{
 		{
 			"basic",
@@ -100,7 +100,7 @@ func TestTable(t *testing.T) {
 			}
 
 			// Unmarshal. We want to do this into a concrete type so we
-			// use reflection here (you can't just decode into interface{})
+			// use reflection here (you can't just decode into any)
 			// and have that work.
 			val := reflect.New(reflect.ValueOf(expected).Elem().Type())
 			require.NoError(json.Unmarshal(bs, val.Interface()))

@@ -7,6 +7,17 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Template errors no longer fail silently. Before, the plugin skipped the file and reported
+  success.
+- An interrupt signal no longer makes the plugin exit with code 0 while generation is in progress.
+
+### Changed
+
+- Update `google.golang.org/protobuf` to v1.36.12 and `github.com/bufbuild/protoplugin` to the
+  latest version.
+
 ## [v1.6.0] - 2026-03-05
 
 ### Added
