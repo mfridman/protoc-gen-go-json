@@ -102,7 +102,7 @@ func TestTable(t *testing.T) {
 			// and have that work.
 			val := reflect.New(reflect.ValueOf(expected).Elem().Type())
 			require.NoError(json.Unmarshal(bs, val.Interface()))
-			require.Equal(val.Interface(), expected)
+			require.Equal(expected, val.Interface())
 		})
 	}
 }
@@ -294,7 +294,7 @@ func TestScannerValuer(t *testing.T) {
 
 		require.NoError(t, msg.Scan([]byte(`{"int":7}`)))
 		require.Equal(t, int32(7), msg.GetInt())
-		require.Equal(t, "", msg.GetStr())
+		require.Empty(t, msg.GetStr())
 
 		require.NoError(t, msg.Scan([]byte(`{"str":"seven"}`)))
 		require.Equal(t, "seven", msg.GetStr())
@@ -302,7 +302,7 @@ func TestScannerValuer(t *testing.T) {
 
 		require.NoError(t, msg.Scan([]byte(`{"int":11}`)))
 		require.Equal(t, int32(11), msg.GetInt())
-		require.Equal(t, "", msg.GetStr())
+		require.Empty(t, msg.GetStr())
 	})
 
 	t.Run("json null literal differs from sql null", func(t *testing.T) {
@@ -326,7 +326,7 @@ func TestScannerValuer(t *testing.T) {
 		err := msg.Scan([]byte("null"))
 		require.Error(t, err)
 		assert.Contains(t, err.Error(), "unexpected token null")
-		require.Equal(t, "", msg.GetA())
+		require.Empty(t, msg.GetA())
 		require.Nil(t, msg.GetB())
 		require.Nil(t, msg.GetMap())
 		require.Nil(t, msg.O)
@@ -340,7 +340,7 @@ func TestScannerValuer(t *testing.T) {
 		err = msg.Scan("null")
 		require.Error(t, err)
 		assert.Contains(t, err.Error(), "unexpected token null")
-		require.Equal(t, "", msg.GetA())
+		require.Empty(t, msg.GetA())
 		require.Nil(t, msg.GetB())
 		require.Nil(t, msg.GetMap())
 		require.Nil(t, msg.O)

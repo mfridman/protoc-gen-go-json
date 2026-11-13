@@ -1,0 +1,18 @@
+version: "2"
+linters:
+  # The standard set (errcheck, govet, ineffassign, staticcheck, unused) stays
+  # on. These add to it.
+  enable:
+    - errorlint
+    - gocritic
+    - misspell
+    - modernize
+    - nolintlint
+    - perfsprint
+    - testifylint
+    - unconvert
+    - usetesting
+formatters:
+  enable:
+    - gofmt
+    - goimports
