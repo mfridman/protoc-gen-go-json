@@ -1,6 +1,6 @@
 module github.com/mfridman/protoc-gen-go-json
 
-go 1.24
+go 1.27
 
 require (
 	github.com/bufbuild/protoplugin v0.0.0-20260414125817-25d1d281b46b

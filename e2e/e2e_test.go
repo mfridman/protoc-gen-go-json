@@ -36,11 +36,9 @@ func TestTable(t *testing.T) {
 		{
 			"basic wrapped in Go struct",
 			&basicWrapper{
-				Basic: Basic{
-					A: "hello",
-					B: &Basic_Int{
-						Int: 42,
-					},
+				A: "hello",
+				B: &Basic_Int{
+					Int: 42,
 				},
 			},
 			nil,

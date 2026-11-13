@@ -142,7 +142,7 @@ func newRequest(fileToGenerate string, parameter string) *pluginpb.CodeGenerator
 	}
 	return &pluginpb.CodeGeneratorRequest{
 		FileToGenerate: []string{fileToGenerate},
-		Parameter:      proto.String(parameter),
+		Parameter:      new(parameter),
 		ProtoFile:      protoFiles,
 	}
 }
