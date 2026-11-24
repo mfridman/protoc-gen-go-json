@@ -3,6 +3,8 @@ package plugin
 import (
 	"bytes"
 	"context"
+	"go/parser"
+	"go/token"
 	"os"
 	"path/filepath"
 	"testing"
@@ -22,15 +24,48 @@ func TestHandleMatchesCommittedE2E(t *testing.T) {
 	t.Parallel()
 
 	// Use the same parameters as e2e/buf.gen.yaml.
-	response := runPlugin(t, e2e.File_e2e_proto.Path(), "orig_name=true,emit_scanner_valuer=true")
+	response := runPlugin(t, e2e.File_e2e_proto.Path(), "orig_name=true,emit_scanner_valuer=true,emit_json_v2=true")
+	require.Empty(t, response.GetError())
+	require.Len(t, response.GetFile(), 2)
+
+	for _, file := range response.GetFile() {
+		name := filepath.Base(file.GetName())
+		want, err := os.ReadFile(filepath.Join("..", "..", "e2e", name))
+		require.NoError(t, err)
+		assert.Equal(t, string(want), file.GetContent(), "e2e/%s is stale, run make proto", name)
+	}
+}
+
+func TestHandleEmitJSONV2Options(t *testing.T) {
+	t.Parallel()
+
+	response := runPlugin(t, e2e.File_e2e_proto.Path(),
+		"enums_as_ints=true,emit_defaults=true,emit_defaults_without_null=true,"+
+			"orig_name=true,allow_unknown=true,emit_json_v2=true")
+	require.Empty(t, response.GetError())
+	require.Len(t, response.GetFile(), 2)
+
+	file := response.GetFile()[1]
+	require.Equal(t, "e2e.pb.jsonv2.go", filepath.Base(file.GetName()))
+	content := file.GetContent()
+	_, err := parser.ParseFile(token.NewFileSet(), file.GetName(), content, parser.ParseComments)
+	require.NoError(t, err, "generated code is not valid Go")
+	assert.NotContains(t, content, "//go:build")
+	// gofmt aligns the values, so allow any white space after the colon.
+	for _, option := range []string{
+		"UseEnumNumbers", "EmitUnpopulated", "EmitDefaultValues", "UseProtoNames", "DiscardUnknown",
+	} {
+		assert.Regexp(t, option+`:\s+true,`, content)
+	}
+}
+
+func TestHandleEmitJSONV2Off(t *testing.T) {
+	t.Parallel()
+
+	response := runPlugin(t, e2e.File_e2e_proto.Path(), "orig_name=true")
 	require.Empty(t, response.GetError())
 	require.Len(t, response.GetFile(), 1)
-
-	file := response.GetFile()[0]
-	assert.Equal(t, "e2e.pb.json.go", filepath.Base(file.GetName()))
-	want, err := os.ReadFile(filepath.Join("..", "..", "e2e", "e2e.pb.json.go"))
-	require.NoError(t, err)
-	assert.Equal(t, string(want), file.GetContent(), "e2e/e2e.pb.json.go is stale, run make proto")
+	assert.Equal(t, "e2e.pb.json.go", filepath.Base(response.GetFile()[0].GetName()))
 }
 
 func TestHandleSkipsFilesWithoutMessages(t *testing.T) {
@@ -74,7 +109,7 @@ func TestParseOptions(t *testing.T) {
 		{
 			name: "all options",
 			raw: "enums_as_ints=true,emit_defaults=true,emit_defaults_without_null=true," +
-				"orig_name=true,allow_unknown=true,emit_scanner_valuer=true",
+				"orig_name=true,allow_unknown=true,emit_scanner_valuer=true,emit_json_v2=true",
 			want: &gen.Options{
 				EnumsAsInts:        true,
 				EmitDefaults:       true,
@@ -82,6 +117,7 @@ func TestParseOptions(t *testing.T) {
 				OrigName:           true,
 				AllowUnknownFields: true,
 				EmitScannerValuer:  true,
+				EmitJSONV2:         true,
 			},
 		},
 		{

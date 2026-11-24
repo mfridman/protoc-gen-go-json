@@ -4,6 +4,7 @@ go 1.27
 
 require (
 	github.com/bufbuild/protoplugin v0.0.0-20260414125817-25d1d281b46b
+	github.com/protolayer/protojsonx-go v0.1.0
 	github.com/stretchr/testify v1.12.1
 	google.golang.org/protobuf v1.36.12
 )

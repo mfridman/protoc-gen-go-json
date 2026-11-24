@@ -5,6 +5,8 @@ build:
 .PHONY: proto
 proto:
 	cd e2e && buf generate
+	cd e2e/alloptions && buf generate
+	cd e2e/defaultvalues && buf generate
 	cd examples && buf generate proto
 
 .PHONY: test
