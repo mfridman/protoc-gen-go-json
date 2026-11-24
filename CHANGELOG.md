@@ -7,12 +7,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [v1.8.0] - 2026-11-24
+
 ### Added
 
 - `emit_json_v2` option to generate `encoding/json/v2` streaming methods (`MarshalJSONTo` and
   `UnmarshalJSONFrom`) in a `.pb.jsonv2.go` file. The methods use
   [protojsonx](https://github.com/protolayer/protojsonx-go) and give the same JSON as `protojson`,
-  but faster.
+  but faster (#13).
 
 ## [v1.7.0] - 2026-11-13
 
@@ -65,7 +67,8 @@ func (msg *Basic) MarshalJSON() ([]byte, error) {
 }
 ```
 
-[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.8.0...HEAD
+[v1.8.0]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.7.0...v1.8.0
 [v1.7.0]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.6.0...v1.7.0
 [v1.6.0]: https://github.com/mfridman/protoc-gen-go-json/compare/v1.5.0...v1.6.0
 [v1.5.0]: https://github.com/mfridman/protoc-gen-go-json/releases/tag/v1.5.0
