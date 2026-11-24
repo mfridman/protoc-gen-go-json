@@ -12,6 +12,7 @@ import (
 
 const (
 	defaultFilenameSuffix = ".pb.json.go"
+	jsonV2FilenameSuffix  = ".pb.jsonv2.go"
 )
 
 func Handle(
@@ -48,6 +49,14 @@ func generate(p *protogen.Plugin, opt *gen.Options) error {
 		g := p.NewGeneratedFile(f.GeneratedFilenamePrefix+defaultFilenameSuffix, f.GoImportPath)
 		if err := gen.ApplyTemplate(g, f, opt); err != nil {
 			g.Skip()
+			return fmt.Errorf("generate %s: %w", f.Desc.Path(), err)
+		}
+		if !opt.EmitJSONV2 {
+			continue
+		}
+		g2 := p.NewGeneratedFile(f.GeneratedFilenamePrefix+jsonV2FilenameSuffix, f.GoImportPath)
+		if err := gen.ApplyJSONV2Template(g2, f, opt); err != nil {
+			g2.Skip()
 			return fmt.Errorf("generate %s: %w", f.Desc.Path(), err)
 		}
 	}

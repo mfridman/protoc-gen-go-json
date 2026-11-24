@@ -1,0 +1,17 @@
+version: v2
+
+# Run from this directory: buf generate
+#
+# This package tests the emit_json_v2 option together with other options at run
+# time. Keep the options in sync with TestJSONV2Options in defaultvalues_test.go.
+plugins:
+  - local: ["go", "tool", "protoc-gen-go"]
+    out: .
+    opt:
+      - paths=source_relative
+  - local: ["go", "run", "github.com/mfridman/protoc-gen-go-json"]
+    out: .
+    opt:
+      - paths=source_relative
+      - emit_defaults_without_null=true
+      - emit_json_v2=true

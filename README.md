@@ -1,8 +1,6 @@
 # protoc-gen-go-json
 
 [![Build](https://github.com/mfridman/protoc-gen-go-json/actions/workflows/ci.yaml/badge.svg)][badges_ci]
-[![Report
-Card](https://goreportcard.com/badge/github.com/mfridman/protoc-gen-go-json)][badges_goreportcard]
 [![Go Reference](https://pkg.go.dev/badge/github.com/mfridman/protoc-gen-go-json.svg)][badges_godoc]
 
 This is a Protobuf plugin for Go that generates code to implement
@@ -158,6 +156,7 @@ for documentation on these options.
 | Option                | Description                                                                                                              | Default |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------- |
 | `emit_scanner_valuer` | Generate `database/sql.Scanner` and `database/sql/driver.Valuer` implementations for storing protobuf messages in database JSON columns | `false` |
+| `emit_json_v2`        | Generate `encoding/json/v2` streaming methods that use [protojsonx](https://github.com/protolayer/protojsonx-go). See below. | `false` |
 
 It also includes the "standard" options available to all
 [protogen](https://pkg.go.dev/google.golang.org/protobuf/compiler/protogen?tab=doc)-based plugins:
@@ -186,6 +185,14 @@ Alternatively, you may also specify options using the `--go-json_opt` value:
 protoc --go-json_out=. --go-json_opt=emit_defaults=true,enums_as_ints=true request.proto
 ```
 
+#### encoding/json/v2
+
+With `emit_json_v2=true`, the plugin also writes a `.pb.jsonv2.go` file with `MarshalJSONTo` and `UnmarshalJSONFrom` methods. `encoding/json` (v1 and v2) uses them instead of `MarshalJSON` and `UnmarshalJSON`. They give the same JSON, but faster, because the message streams through the encoder and decoder. The file needs Go 1.27 or newer and the [protojsonx](https://github.com/protolayer/protojsonx-go) module:
+
+```sh
+go get github.com/protolayer/protojsonx-go
+```
+
 ## Acknowledgements
 
 This project is a clone of
@@ -196,5 +203,4 @@ Archive](https://gist.github.com/mitchellh/90029601268e59a29e64e55bab1c5bdc) gis
 information.
 
 [badges_ci]: https://github.com/mfridman/protoc-gen-go-json/actions/workflows/ci.yaml
-[badges_goreportcard]: https://goreportcard.com/report/github.com/mfridman/protoc-gen-go-json
 [badges_godoc]: https://pkg.go.dev/github.com/mfridman/protoc-gen-go-json

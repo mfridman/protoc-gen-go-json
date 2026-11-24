@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package e2e.defaultvalues;
+
+option go_package = "github.com/mfridman/protoc-gen-go-json/e2e/defaultvalues";
+
+// Item is generated with emit_defaults_without_null, to test the
+// options at run time.
+message Item {
+  enum Kind {
+    KIND_UNSPECIFIED = 0;
+    KIND_A = 1;
+  }
+  string display_name = 1;
+  int32 count = 2;
+  Kind kind = 3;
+  optional string note = 4;
+  repeated string tags = 5;
+  // An unset message field is null with emit_defaults, and left out with
+  // emit_defaults_without_null.
+  Item parent = 6;
+}

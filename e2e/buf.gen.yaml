@@ -16,3 +16,4 @@ plugins:
       # Keep in sync with TestHandleMatchesCommittedE2E.
       - orig_name=true
       - emit_scanner_valuer=true
+      - emit_json_v2=true
